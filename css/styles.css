@@ -1,0 +1,23 @@
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+.book-card {
+  background-color: #f6f6f6;
+  width: 300px;
+  box-shadow: 0px 0px 5px 3px #e3e3e3;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.book-img {
+  display: block;
+  width: 80%;
+  height: 300px;
+  margin: 0 auto;
+}
+.book-title {
+  margin-top: 20px;
+}
