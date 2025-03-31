@@ -4,10 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/styles.css" />
+
     <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/8ea94d3512.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1 id="totalBooks">Hello World!</h1>
+    <div style="display: flex; justify-content: end">
+      <select
+        class="book-filter"
+        id="bookFilter"
+        onchange="filterBooks(event)"
+        name="genre"
+        id=""
+      >
+        <option value="">All Topics</option>
+      </select>
+      <div class="search-books">
+        <input
+          id="searchText"
+          class="search"
+          type="text"
+          placeholder="Search books"
+        />
+        <button onclick="handleSearch()" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
     <div id="books" class="books-container"></div>
 
     <script src="./script.js"></script>

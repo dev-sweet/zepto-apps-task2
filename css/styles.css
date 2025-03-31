@@ -1,3 +1,25 @@
+.book-filter {
+  width: 200px;
+  height: 45px;
+  margin-right: 10px;
+  padding: 8px;
+  outline: none;
+}
+.search-books {
+  width: 250px;
+  display: flex;
+  margin-bottom: 50px;
+}
+.search-books button {
+  padding: 0 10px;
+  cursor: pointer;
+}
+.search-books .search {
+  width: 100%;
+  padding: 12px;
+  outline: none;
+}
+
 .books-container {
   display: flex;
   flex-wrap: wrap;
@@ -5,19 +27,47 @@
   gap: 25px;
 }
 .book-card {
-  background-color: #f6f6f6;
+  background-color: #eeeeee63;
   width: 300px;
   box-shadow: 0px 0px 5px 3px #e3e3e3;
-  padding: 20px;
+  padding-top: 20px;
   border-radius: 10px;
 }
 
 .book-img {
   display: block;
-  width: 80%;
+  width: 90%;
   height: 300px;
   margin: 0 auto;
 }
+.book-id {
+  font-weight: 600;
+}
+.book-info {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  height: 100%;
+}
 .book-title {
   margin-top: 20px;
+}
+.genres {
+  font-size: 14px;
+}
+
+.cart-btn {
+  display: block;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  margin: 20px auto;
+  font-size: 35px;
+  cursor: pointer;
+  color: red;
+  transition: 0.3s;
+  position: relative;
+  bottom: 0%;
+}
+
+.cart-btn:hover {
+  font-size: 40px;
 }
