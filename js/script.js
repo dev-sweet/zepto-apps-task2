@@ -12,7 +12,6 @@ const fetchBooks = async (searchQuery = "", filter = "") => {
     const data = await res.json();
     let books = data.results;
 
-    const bookFilter = document.getElementById("bookFilter");
     const topics = [];
 
     // get all topics in a single array
@@ -23,12 +22,15 @@ const fetchBooks = async (searchQuery = "", filter = "") => {
     );
 
     // set topics in filter option
+    const bookFilter = document.getElementById("bookFilter");
     topics.forEach((topic) => {
       const option = document.createElement("option");
       option.value = topic;
       option.innerText = topic;
+
       bookFilter.appendChild(option);
     });
+
     if (filter) {
       books = data.results.filter((book) => book.subjects.includes(filter));
     }
