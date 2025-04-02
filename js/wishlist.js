@@ -1,9 +1,10 @@
 const cartContainer = document.getElementById("cartContainer");
 const fetchCarts = async () => {
+  cartContainer.innerHTML = `<h4 class="cart-loading">..Loading</h4>`;
   const cartIds = JSON.parse(localStorage.getItem("carts")).join(",");
 
   if (!cartIds) {
-    cartContainer.innerHTML = `<div><h1>Your cart is empty</h1> <p>Please <a href="/">Add books</a> to your cart</p></div>`;
+    cartContainer.innerHTML = `<div><h1>Your wishlist is empty</h1> <p>Please <a href="/">Add books</a> to your cart</p></div>`;
   } else if (cartIds) {
     const res = await fetch(`https://gutendex.com/books?ids=${cartIds}`);
     const data = await res.json();
@@ -30,7 +31,6 @@ const showCarts = (books) => {
 
     const image = book.formats["image/jpeg"];
     const author = book?.authors[0].name;
-    const genres = book?.subjects.join(",");
 
     cartElement.innerHTML = `
      <p class="cart-id">#${book.id}</p>

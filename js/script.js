@@ -3,7 +3,7 @@ const booksContainer = document.getElementById("books");
 const fetchBooks = async (searchQuery = "", filter = "") => {
   try {
     // at first show the loading element
-    booksContainer.innerHTML = "<h4>..Loading</h4>";
+    booksContainer.innerHTML = `<h4 class="books-loading">..Loading</h4>`;
 
     // fetch the data by searchquery
     const res = await fetch(
@@ -45,23 +45,41 @@ const showBooks = (books) => {
   booksContainer.innerHTML = "";
   //   show book lists
 
+  const carts = JSON.parse(localStorage.getItem("carts"));
   books.forEach((book) => {
     const bookCard = document.createElement("div");
+
+    // handle click event on clicking card
+    bookCard.addEventListener("click", (e) => {
+      window.location.href = `/bookDetails.html?id=${book.id}`;
+    });
+
     bookCard.classList.add("book-card");
 
     const image = book.formats["image/jpeg"];
     const author = book?.authors[0].name;
-    const genres = book?.subjects.join(",");
+    const genres = book?.subjects.slice(0, 2).join(",");
 
     bookCard.innerHTML = `
-    <img class="book-img" src="${image}"/>
+   <img class="book-img" src="${image}"/>
     <div class="book-info">
 
     <p class="book-id">#${book.id}</p>
     <h2 class="book-title">${book.title}</h2>
     <p>By: ${author}</p>
-    <p class="genres">${genres}</p>
-    <button onclick="handleAddCart(${book.id})" class="cart-btn"> <i class="far fa-heart"></i></button>
+    <p class="genres">Topics: ${genres}</p>
+    
+    
+      ${
+        !carts?.includes(book.id)
+          ? ` <button  onclick="handleAddCart(event,${book.id})" class="cart-btn">
+          <i class="far fa-heart"></i>
+        </button>`
+          : ` <button onclick="removeCart(event,${book.id})" class="cart-btn">
+          <i class="fa fa-heart"></i>
+        </button>`
+      }
+  
     </div>
     `;
 
@@ -80,13 +98,25 @@ const filterBooks = (e) => {
 };
 
 // handle add to cart
-const handleAddCart = (id) => {
+const handleAddCart = (e, id) => {
+  e.stopPropagation();
+
   const carts = JSON.parse(localStorage.getItem("carts")) || [];
   if (!carts.includes(id)) {
     carts.push(id);
     localStorage.setItem("carts", JSON.stringify(carts));
+    // fetchBooks();
     alert(`${id} is added to cart`);
   } else {
     alert("This book is already in cart!");
   }
+};
+
+// remove book from cart
+const removeCart = (e, id) => {
+  e.stopPropagation();
+
+  const carts = JSON.parse(localStorage.getItem("carts"));
+  const newCarts = carts.filter((cartId) => cartId !== id);
+  console.log(newCarts);
 };

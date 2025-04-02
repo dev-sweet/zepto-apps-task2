@@ -1,3 +1,9 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.hello-world {
+  padding: 0 30px;
+}
 .book-filter {
   width: 200px;
   height: 45px;
@@ -20,6 +26,11 @@
   outline: none;
 }
 
+.books-loading {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
 .books-container {
   display: flex;
   flex-wrap: wrap;
@@ -27,29 +38,39 @@
   gap: 25px;
 }
 .book-card {
-  background-color: #eeeeee63;
   width: 300px;
-  box-shadow: 0px 0px 5px 3px #e3e3e3;
-  padding-top: 20px;
+  box-shadow: 0px 2px 2px 3px #e3e3e3;
+  padding-bottom: 50px;
   border-radius: 10px;
+  position: relative;
 }
-
+.book-card:hover {
+  background-color: rgb(236, 236, 236);
+  transition: 0.3s;
+  cursor: pointer;
+}
 .book-img {
   display: block;
-  width: 90%;
-  height: 300px;
+  width: 120px;
+  height: 150px;
   margin: 0 auto;
 }
 .book-id {
   font-weight: 600;
+  margin: 0;
+  color: #414141;
 }
 .book-info {
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
   padding: 20px;
-  height: 100%;
+  height: auto;
+}
+.book-info p {
+  margin: 8px 0;
 }
 .book-title {
-  margin-top: 20px;
+  font-size: 16px;
+  margin: 2px 0;
 }
 .genres {
   font-size: 14px;
@@ -58,16 +79,22 @@
 .cart-btn {
   display: block;
   background-color: rgb(255, 255, 255);
-  border: none;
-  margin: 20px auto;
+  border: 1px solid red;
   font-size: 35px;
   cursor: pointer;
   color: red;
   transition: 0.3s;
-  position: relative;
-  bottom: 0%;
+  position: absolute;
+  bottom: 16px;
+  right: 43%;
 }
 
 .cart-btn:hover {
-  font-size: 40px;
+  color: white;
+  background-color: red;
+}
+
+.book-card .book-img {
+  margin: 15px auto;
+  box-shadow: -1px 3px 3px 1px #a3a3a3;
 }
