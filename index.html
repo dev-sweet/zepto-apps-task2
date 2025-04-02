@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/styles.css" />
-
+    <link rel="stylesheet" href="./css/navbar.css" />
     <title>Document</title>
     <script
       src="https://kit.fontawesome.com/8ea94d3512.js"
@@ -12,38 +12,54 @@
     ></script>
   </head>
   <body>
-    <h1 class="hello-world">Hello World!</h1>
-    <div
-      style="
-        display: flex;
-        justify-content: end;
-        margin-bottom: 40px;
-        padding: 0 50px;
-      "
-    >
-      <select
-        class="book-filter"
-        id="bookFilter"
-        onchange="filterBooks(event)"
-        name="genre"
-        id=""
-      >
-        <option value="">All Topics</option>
-      </select>
-      <div class="search-books">
-        <input
-          id="searchText"
-          class="search"
-          type="text"
-          placeholder="Search books"
-        />
-        <button onclick="handleSearch()" class="search-button">
-          <i class="fas fa-search"></i>
-        </button>
+    <nav class="navbar">
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
       </div>
-    </div>
-    <div id="books" class="books-container"></div>
+      <div class="logo">MyLogo</div>
+      <ul class="nav-links">
+        <li>
+          <a style="color: rgb(133, 133, 133); padding: 5px" href="index.html"
+            >Home</a
+          >
+        </li>
+        <li><a href="wishlist.html">Wishlist</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
 
+    <section class="books-section">
+      <h1 class="hello-world">Hello, Welcome!</h1>
+      <div class="search-and-filter">
+        <select
+          class="book-filter"
+          id="bookFilter"
+          onchange="filterBooks(event)"
+          name="genre"
+          id=""
+        >
+          <option value="">All Topics</option>
+        </select>
+        <div class="search-books">
+          <input
+            id="searchText"
+            class="search"
+            type="text"
+            placeholder="Search books"
+          />
+          <button onclick="handleSearch()" class="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      <div id="books" class="books-container"></div>
+      <div class="pagination">
+        <button id="prev-page" disabled>Previous</button>
+        <button id="next-page" disabled>Next</button>
+      </div>
+    </section>
+    <script src="./js/navbar.js"></script>
     <script src="./js/script.js"></script>
   </body>
 </html>

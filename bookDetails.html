@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./css/bookDetails.css" />
+    <link rel="stylesheet" href="./css/navbar.css" />
   </head>
   <body>
-    <h1>Book Details</h1>
+    <nav class="navbar">
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">MyLogo</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="wishlist.html">Wishlist</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
 
-    <div id="bookDetails"></div>
+    <section class="details-section">
+      <h1 style=>Book Details</h1>
+      <div id="bookDetails"></div>   
+    </section>
+    <script src="./js/navbar.js"></script>
     <script src="./js/bookDetails.js"></script>
   </body>
 </html>

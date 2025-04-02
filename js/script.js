@@ -1,21 +1,28 @@
 const booksContainer = document.getElementById("books");
 
-const fetchBooks = async (searchQuery = "", filter = "") => {
+const fetchBooks = async (
+  searchQuery = "",
+  filter = "",
+  currentURL = "https://gutendex.com/books/"
+) => {
+  const url = searchQuery
+    ? `${currentURL}?search=${encodeURIComponent(searchQuery)}`
+    : currentURL;
+
+  console.log(url);
   try {
     // at first show the loading element
     booksContainer.innerHTML = `<h4 class="books-loading">..Loading</h4>`;
 
     // fetch the data by searchquery
-    const res = await fetch(
-      `https://gutendex.com/books/?search=${encodeURIComponent(searchQuery)}`
-    );
+    const res = await fetch(url);
     const data = await res.json();
     let books = data.results;
 
     const topics = [];
 
     // get all topics in a single array
-    books.forEach((book) =>
+    books?.forEach((book) =>
       book?.subjects?.forEach(
         (subject) => !topics.includes(subject) && topics.push(subject)
       )
@@ -35,16 +42,17 @@ const fetchBooks = async (searchQuery = "", filter = "") => {
       books = data.results.filter((book) => book.subjects.includes(filter));
     }
 
-    // show the books
     showBooks(books);
+    updatePaginationButtons(data.next, data.previous);
   } catch (err) {
     console.log(err);
   }
 };
+fetchBooks();
+
 const showBooks = (books) => {
   booksContainer.innerHTML = "";
   //   show book lists
-
   const carts = JSON.parse(localStorage.getItem("carts"));
   books.forEach((book) => {
     const bookCard = document.createElement("div");
@@ -56,8 +64,8 @@ const showBooks = (books) => {
 
     bookCard.classList.add("book-card");
 
-    const image = book.formats["image/jpeg"];
-    const author = book?.authors[0].name;
+    const image = book?.formats["image/jpeg"];
+    const author = book?.authors[0]?.name;
     const genres = book?.subjects.slice(0, 2).join(",");
 
     bookCard.innerHTML = `
@@ -86,7 +94,23 @@ const showBooks = (books) => {
     booksContainer.appendChild(bookCard);
   });
 };
-fetchBooks();
+
+// update the pagination button
+const updatePaginationButtons = (next, previous) => {
+  const nextBtn = document.getElementById("next-page");
+  const prevBtn = document.getElementById("prev-page");
+
+  nextBtn.disabled = !next;
+  prevBtn.disabled = !previous;
+
+  console.log("next", "previous", next, previous);
+  if (next) {
+    nextBtn.onclick = () => fetchBooks("", "", next);
+  }
+  if (previous) {
+    prevBtn.onclick = () => fetchBooks("", "", previous);
+  }
+};
 
 const handleSearch = () => {
   const searchText = document.getElementById("searchText").value;
@@ -105,7 +129,14 @@ const handleAddCart = (e, id) => {
   if (!carts.includes(id)) {
     carts.push(id);
     localStorage.setItem("carts", JSON.stringify(carts));
-    // fetchBooks();
+
+    const button = e.target.closest("button");
+    button.outerHTML = `
+      <button class="cart-btn" onclick="removeCart(event, ${id})">
+        <i class="fa fa-heart"></i> <!-- Liked State -->
+      </button>
+    `;
+
     alert(`${id} is added to cart`);
   } else {
     alert("This book is already in cart!");
@@ -115,8 +146,17 @@ const handleAddCart = (e, id) => {
 // remove book from cart
 const removeCart = (e, id) => {
   e.stopPropagation();
-
   const carts = JSON.parse(localStorage.getItem("carts"));
-  const newCarts = carts.filter((cartId) => cartId !== id);
-  console.log(newCarts);
+  const newCarts = carts?.filter((cartId) => cartId !== id);
+  localStorage.setItem("carts", JSON.stringify(newCarts));
+
+  // Change button dynamically
+  const button = e.target.closest("button");
+  button.outerHTML = `
+      <button class="cart-btn" onclick="handleAddCart(event, ${id})">
+        <i class="far fa-heart"></i> <!-- Liked State -->
+      </button>
+    `;
+
+  alert(`${id} is removed from cart`);
 };

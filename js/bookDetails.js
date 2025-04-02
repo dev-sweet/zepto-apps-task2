@@ -11,11 +11,10 @@ const fetchBookById = async () => {
 };
 
 const showDetails = (book) => {
-  const image = book.formats["image/jpeg"];
-  console.log(book);
   const author = book?.authors.map((author) => author.name);
-  console.log(book.authors);
   const genres = book?.subjects.join(",");
+  console.log(book);
+  const image = book.formats["image/jpeg"];
   bookDetailsDiv.innerHTML = `
     <div class="img-container">
         <img class="img" src="${image}" />
@@ -24,7 +23,7 @@ const showDetails = (book) => {
     <div class="details">
         <h2 class="title">${book.title}</h2>
         <p><span>Book ID:</span> ${book.id}</p>
-        <p class="authors"><span>Authors:</span> ${author}</p>
+        <p class="authors"><span>By:</span> ${author}</p>
         <p><span>Genres:</span> ${genres}</p>
         <p><span>Summaries:</span> ${book.summaries}</p>
         <p><span>Genres:</span> ${genres}</p>

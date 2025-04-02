@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/carts.css" />
+    <link rel="stylesheet" href="./css/navbar.css" />
     <title>Carts</title>
     <script
       src="https://kit.fontawesome.com/8ea94d3512.js"
@@ -11,10 +12,30 @@
     ></script>
   </head>
   <body>
-    <h1>Your wishlist</h1>
+    <nav class="navbar">
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">MyLogo</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a
+            style="color: rgb(133, 133, 133); padding: 5px"
+            href="wishlist.html"
+            >Wishlist</a
+          >
+        </li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <section class="carts-section">
+      <h1 id="totalWishlist"></h1>
+      <div id="cartContainer" class="cart-container"></div>
+    </section>
 
-    <div id="cartContainer" class="cart-container"></div>
-
+    <script src="./js/navbar.js"></script>
     <script src="./js/wishlist.js"></script>
   </body>
 </html>

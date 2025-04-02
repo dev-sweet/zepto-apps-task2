@@ -1,4 +1,5 @@
 const cartContainer = document.getElementById("cartContainer");
+const totalWishlist = document.getElementById("totalWishlist");
 const fetchCarts = async () => {
   cartContainer.innerHTML = `<h4 class="cart-loading">..Loading</h4>`;
   const cartIds = JSON.parse(localStorage.getItem("carts")).join(",");
@@ -8,6 +9,10 @@ const fetchCarts = async () => {
   } else if (cartIds) {
     const res = await fetch(`https://gutendex.com/books?ids=${cartIds}`);
     const data = await res.json();
+
+    // set wishlists total
+    totalWishlist.innerText = `Your Wishlist (${data.count || 0})`;
+
     showCarts(data.results);
   }
 };

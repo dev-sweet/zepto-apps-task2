@@ -1,5 +1,9 @@
+.details-section {
+  margin: 100px 200px;
+}
+
 #bookDetails {
-  max-width: 1000px;
+  max-width: 1080px;
   max-height: 50%;
   margin: 20px auto;
   box-shadow: 0px 0px 2px 2px #dfdfdf;
@@ -47,7 +51,16 @@
   left: 37%;
 }
 
+@media only screen and (max-width: 992px) {
+  .details-section {
+    margin: 100px 0px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
+  .details-section {
+    margin: 60px 0;
+  }
   #bookDetails {
     display: block;
     border: 0;
@@ -66,6 +79,5 @@
   }
   .details {
     min-width: 100%;
-    margin-top: 20px;
   }
 }
