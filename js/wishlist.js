@@ -22,7 +22,7 @@ const showCarts = (books) => {
       <h4>#ID</h4>
       <h4 class="cart-img">Image</h4>
       <h4>Title</h4>
-      <h4>Authors</h4>
+      <h4>Author</h4>
 
       <h4 >
         Action

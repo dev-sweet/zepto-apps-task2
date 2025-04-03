@@ -50,6 +50,21 @@
   bottom: 0px;
   left: 37%;
 }
+.cart-btn {
+  display: block;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid red;
+  font-size: 35px;
+  cursor: pointer;
+  color: red;
+  transition: 0.3s;
+  margin: 10px;
+}
+
+.cart-btn:hover {
+  color: white;
+  background-color: red;
+}
 
 @media only screen and (max-width: 992px) {
   .details-section {
