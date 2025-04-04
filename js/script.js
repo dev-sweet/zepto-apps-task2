@@ -9,7 +9,6 @@ const fetchBooks = async (
     ? `${currentURL}?search=${encodeURIComponent(searchQuery)}`
     : currentURL;
 
-  console.log(url);
   try {
     // at first show the loading element
     booksContainer.innerHTML = `<h4 class="books-loading">..Loading</h4>`;
@@ -35,6 +34,9 @@ const fetchBooks = async (
       option.value = topic;
       option.innerText = topic;
 
+      if (topic === filter) {
+        option.selected = true;
+      }
       bookFilter.appendChild(option);
     });
 
@@ -43,15 +45,22 @@ const fetchBooks = async (
     }
 
     showBooks(books);
-    updatePaginationButtons(data.next, data.previous);
+    updatePaginationButtons(data.next, data.previous, filter);
+    savePreferences(searchQuery, filter);
   } catch (err) {
     console.log(err);
   }
 };
-fetchBooks();
 
+// show books after fetch
 const showBooks = (books) => {
   booksContainer.innerHTML = "";
+
+  // if no books found
+  if (!books.length) {
+    booksContainer.innerHTML = `<h1>No result matches</h1>`;
+  }
+
   //   show book lists
   const carts = JSON.parse(localStorage.getItem("carts"));
   books.forEach((book) => {
@@ -96,14 +105,13 @@ const showBooks = (books) => {
 };
 
 // update the pagination button
-const updatePaginationButtons = (next, previous) => {
+const updatePaginationButtons = (next, previous, filter) => {
   const nextBtn = document.getElementById("next-page");
   const prevBtn = document.getElementById("prev-page");
 
-  nextBtn.disabled = !next;
-  prevBtn.disabled = !previous;
+  nextBtn.disabled = !next || filter;
+  prevBtn.disabled = !previous || filter;
 
-  console.log("next", "previous", next, previous);
   if (next) {
     nextBtn.onclick = () => fetchBooks("", "", next);
   }
@@ -112,13 +120,48 @@ const updatePaginationButtons = (next, previous) => {
   }
 };
 
+// save preferences
+const savePreferences = (search, filter) => {
+  localStorage.setItem("search", search);
+
+  localStorage.setItem("filter", filter);
+};
+// load freferences
+const loadPreferences = () => {
+  const search = localStorage.getItem("search");
+  const filter = localStorage.getItem("filter") || "";
+
+  if (search) {
+    document.getElementById("searchText").value = search;
+  }
+
+  document.getElementById("bookFilter").value = filter;
+  fetchBooks(search, filter);
+};
+loadPreferences();
+// event function
+
+// handle events when type
+document.getElementById("searchText").addEventListener("input", (e) => {
+  const search = e.target.value;
+  const filter = document.getElementById("bookFilter").value;
+
+  fetchBooks(search, filter);
+});
+
+// search books by clicking
 const handleSearch = () => {
-  const searchText = document.getElementById("searchText").value;
-  fetchBooks(searchText);
+  const search = document.getElementById("searchText").value;
+  const filter = document.getElementById("bookFilter").value;
+
+  fetchBooks(search, filter);
 };
 
+// filter books
 const filterBooks = (e) => {
-  fetchBooks("", e.target.value);
+  const search = document.getElementById("searchText").value;
+  const filter = e.target.value;
+  fetchBooks(search, filter);
 };
 
 // handle add to cart
